@@ -1,0 +1,11 @@
+#download config file v.10
+
+[global]
+DOWN_DIR=/home/admin
+SYNC_DIR=/home/admin/1;/home/admin/2;/home/amdin/3
+DOWER_TYPE=scp
+
+[scp]
+USER=admin #user name
+HOST=192.169.3.1 #service ip or domain
+PORT=2222 #service port
