@@ -1,5 +1,12 @@
 #!/bin/bash
 
+work_dir=$(cd $(dirname $0); pwd)
+
+
+pushd $work_dir
+
+trap 'exited' SIGINT
+
 source downloader.sh ${1:-./config}
 
 PID_LOCK=${2:-./sync-file.pid}
@@ -30,14 +37,20 @@ main() {
 		for dir in $1; do
 			echo $dir
 			sync_dir $dir $2 $3
+			break
 		done
-		sleep 10	
+		#sleep 10	
+		running=0
 	done
+	echo "task exit"
+
+	exited
 }
 
-trap 'exited' SIGINT
 
-main ${4:-$SYNC_DIR} ${5:-$DOWN_DIR} ${3:-./task_state.downer}
+main "${4:-$SYNC_DIR}" "${5:-$DOWN_DIR}" "${3:-./task_state.downer}"
+
+popd $work_dir
 
 # crond /etc/cron.d
 # m h dom mon dow user  command

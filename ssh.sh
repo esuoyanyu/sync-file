@@ -20,7 +20,7 @@ _is_empty_dir() {
 
 # $1-要删除的文件或目录
 _rm() {
-	#ssh -p $SERVICE_PORT $SERVICE_USER@$SERVICE_HOST "$(declare -f __rm); __rm $1"
+	ssh -p $SERVICE_PORT $SERVICE_USER@$SERVICE_HOST "$(declare -f __rm); __rm $1"
 	return 0 #$?
 }
 
