@@ -20,21 +20,19 @@ donwloader() {
 
 	_is_empty_file $1
 	is_empty=$?
-	if [ $file_or_dir -eq 1 -a $is_empty -eq 1 ]; then
+	if [ $file_or_dir -eq 1 -a $is_empty -eq 0 ]; then
 		echo "download file start $1"
 		_download_file $1 $2
 		echo "downlaod file done"
 		return 0
 	fi
 
-	echo "sssssssssssssssssssss"
-
 	_is_dir $1
 	file_or_dir=$?
 
 	_is_empty_dir $1
 	is_empty=$?
-	if [ $file_or_dir -eq 1 -a $is_empty -eq 1 ]; then
+	if [ $file_or_dir -eq 1 -a $is_empty -eq 0 ]; then
 		echo "download dir start $1"
 		_download_dir $1 $2
 		echo "downlaod dir done"
