@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source downloader.sh ${3:-./test/config.test}
+source downloader.sh ${1:-./config}
 
-PID_LOCK=./sync-file.pid
+PID_LOCK=${2:-./sync-file.pid}
 exited() {
 	if [ -f ${PID_LOCK} ]; then
 		rm -f ${PID_LOCK}
@@ -37,7 +37,7 @@ main() {
 
 trap 'exited' SIGINT
 
-main ${1:-$SYNC_DIR} ${2:-$DOWN_DIR} ${4:-./task_state.downer}
+main ${4:-$SYNC_DIR} ${5:-$DOWN_DIR} ${3:-./task_state.downer}
 
 # crond /etc/cron.d
 # m h dom mon dow user  command

@@ -20,11 +20,15 @@ donwloader() {
 
 	_is_empty_file $1
 	is_empty=$?
-	if [ $file_or_dir -eq 1 -a $is_empty -eq 0 ]; then
-		echo "download file start $1"
-		_download_file $1 $2
-		echo "downlaod file done"
-		return 0
+	if [ $file_or_dir -eq 1 ]; then
+		if [ $is_empty -eq 0 ]; then
+			echo "download file start $1"
+			_download_file $1 $2
+			return 0
+		else
+			_rm $1
+			return 1
+		fi
 	fi
 
 	_is_dir $1
@@ -32,11 +36,15 @@ donwloader() {
 
 	_is_empty_dir $1
 	is_empty=$?
-	if [ $file_or_dir -eq 1 -a $is_empty -eq 0 ]; then
-		echo "download dir start $1"
-		_download_dir $1 $2
-		echo "downlaod dir done"
-		return 0
+	if [ $file_or_dir -eq 1 ]; then
+		if [ $is_empty -eq 0 ]; then
+			echo "download dir start $1"
+			_download_dir $1 $2
+			return 0
+		else
+			_rm $1
+			return 1
+		fi
 	fi
 
 	return 1
@@ -50,10 +58,18 @@ sync_dir() {
 		return 1
 	fi
 
-	echo "file_list = $file_list"
+	#echo "file_list = $file_list"
 
 	for item in $file_list; do
-		donwloader $item $2
+		sub_dir="${item#*$1}"
+		save_dir="$2/${sub_dir#/}"
+		save_dir=$(dirname $save_dir)
+		if [ ! -d "$save_dir" ]; then
+			#echo "save_dir $save_dir"
+			mkdir -p "$save_dir"
+		fi
+
+		donwloader $item $save_dir
 	done
 
 	#"$1 $pid $?" >>$3
