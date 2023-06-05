@@ -2,7 +2,7 @@
 # return 1 empty
 # return 0 not empty
 __is_empty_file() {
-	if [ -s $1 ]; then
+	if [ -s "$1" ]; then
 		return 0
 	else
 		return 1
@@ -23,7 +23,7 @@ __is_empty_dir() {
 
 # $1 要删除的文件或目录
 __rm() {
-	if [ -f $1 ]; then
+	if [ -f "$1" ]; then
 		rm -f $1 2>/dev/null;
 	else
 		rm -rf $1 2>/dev/null;
@@ -39,6 +39,8 @@ __file_list() {
 		if [ -d  ${dir_or_file} -a "$(ls ${dir_or_file} 2>/dev/null)" != "" ]; then
 			__file_list ${dir_or_file}
 		else
+			dir_or_file=$(echo "$dir_or_file" | sed "s#(#\\\(#g")
+			dir_or_file=$(echo "$dir_or_file" | sed "s#)#\\\)#g")
 			echo "${dir_or_file}"
 		fi
 	done
@@ -46,7 +48,7 @@ __file_list() {
 
 # $1 文件
 __is_file() {
-	if [ -f $1 ]; then
+	if [ -f "$1" ]; then
 		return 1
 	fi
 
@@ -55,7 +57,7 @@ __is_file() {
 
 # $1 文件
 __is_dir() {
-	if [ -d $1 ]; then
+	if [ -d "$1" ]; then
 		return 1;
 	fi
 

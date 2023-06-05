@@ -69,7 +69,8 @@ sync_dir() {
 			mkdir -p "$save_dir"
 		fi
 
-		donwloader $item $save_dir
+		file=$(echo "$item" | sed "s#&#\\\&#g")
+		donwloader $file $save_dir
 	done
 
 	#"$1 $pid $?" >>$3
