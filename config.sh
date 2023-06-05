@@ -1,3 +1,7 @@
+# Copyright [2023] [esuoyanyu]. All rights reserved.
+# Use of this source code is governed by a MIT-style
+# license that can be found in the LICENSE file.
+
 # $1 段 $2 KEY $3 配置文件
 value() {
 	section=$1

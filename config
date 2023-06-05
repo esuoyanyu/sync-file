@@ -1,9 +1,12 @@
-#download config file v.10
+#download config file v1.0
 
 [global]
 DOWN_DIR=/home/admin
 SYNC_DIR=/home/admin/1;/home/admin/2;/home/amdin/3
 DOWER_TYPE=scp
+DOWER_TOTAL=5 #同时同步目录个数的最大值
+RECORD_TOTAL=3 #每个目录同时下载的最大值
+FILTER=.text;.xml; #过滤器，忽略下载的文件类型
 
 [scp]
 USER=admin #user name

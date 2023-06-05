@@ -1,3 +1,7 @@
+# Copyright [2023] [esuoyanyu]. All rights reserved.
+# Use of this source code is governed by a MIT-style
+# license that can be found in the LICENSE file.
+
 source config.sh
 
 set_env $1
@@ -11,7 +15,7 @@ case "$DOWNER" in
 	;;
 esac
 
-echo $DOWNER
+echo "$DOWNER"
 
 # $1-下载的文件 $2-保存的路径
 donwloader() {
@@ -48,30 +52,4 @@ donwloader() {
 	fi
 
 	return 1
-}
-
-# $1 要同步的目录 $2 要保存的目录 $3 和父进程通信 file
-sync_dir() {
-	#1. get file list
-	file_list=$(_file_list $1)
-	if [ "$file_list" == "" ]; then
-		return 1
-	fi
-
-	#echo "file_list = $file_list"
-
-	for item in $file_list; do
-		sub_dir="${item#*$1}"
-		save_dir="$2/${sub_dir#/}"
-		save_dir=$(dirname $save_dir)
-		if [ ! -d "$save_dir" ]; then
-			#echo "save_dir $save_dir"
-			mkdir -p "$save_dir"
-		fi
-
-		donwloader $item $save_dir
-	done
-
-	#"$1 $pid $?" >>$3
-	return 0
 }

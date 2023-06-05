@@ -1,4 +1,6 @@
-#!/bin/bash
+# Copyright [2023] [esuoyanyu]. All rights reserved.
+# Use of this source code is governed by a MIT-style
+# license that can be found in the LICENSE file.
 
 source base.sh
 
@@ -47,7 +49,7 @@ _download_file() {
 	file=$1
 	dir=${2:-./}
 
-	scp -P ${SERVICE_PORT} ${SERVICE_USER}@${SERVICE_HOST}:"$file" $dir #2>/dev/null
+	scp -P $SERVICE_PORT $SERVICE_USER@$SERVICE_HOST:"$file" $dir #2>/dev/null
 	if [ $? -eq 0 ]; then
 		_rm $1
 		return 0
@@ -61,7 +63,7 @@ _download_dir() {
 	dir=$1
 	save_dir=${2:-./}
 
-	scp -P ${SERVICE_PORT} -r ${SERVICE_USER}@${SERVICE_HOST}:"$dir" $save_dir #2>/dev/null
+	scp -P $SERVICE_PORT -r $SERVICE_USER@$SERVICE_HOST:"$dir" $save_dir #2>/dev/null
 	if [ $? -eq 0 ]; then
 		_rm $1
 		return 0
