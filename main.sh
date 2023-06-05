@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright [2023] [esuoyanyu]. All rights reserved.
+# Use of this source code is governed by a MIT-style
+# license that can be found in the LICENSE file.
 trap 'exited' SIGINT
 
 work_dir=$(cd $(dirname $0); pwd)
